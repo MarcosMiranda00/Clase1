@@ -20,5 +20,5 @@ private int ID;
 private int matricula;
 private String Usu;
 private String pass;
-    
+private int NIE;
 }

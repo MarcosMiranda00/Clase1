@@ -26,6 +26,7 @@ public class crudPersona extends javax.swing.JFrame {
     public crudPersona() {
         initComponents();
         MostrarTablaPersona();
+        this.setLocationRelativeTo(null);
     }
     
     void MostrarTablaPersona()
