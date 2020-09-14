@@ -5,19 +5,19 @@
  */
 package com.unab.edu.operacionBd;
 
-import com.unab.edu.DAO.ClsEstudiante;
+import com.unab.edu.DAO.ClsProfesor;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author PC
  */
-public class frmLoguin extends javax.swing.JFrame {
+public class frmLoguinProfesor extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmLoguin
+     * Creates new form frmLoguinProfesor
      */
-    public frmLoguin() {
+    public frmLoguinProfesor() {
         initComponents();
     }
 
@@ -30,30 +30,18 @@ public class frmLoguin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblUusario = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
-        lblContrasenia = new javax.swing.JLabel();
-        txtContrasenia = new javax.swing.JPasswordField();
+        txtUsuar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtContras = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblUusario.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
-        lblUusario.setText("Usuario");
+        jLabel1.setText("Usuario");
 
-        txtUsuario.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
+        jLabel2.setText("Contraseña");
 
-        lblContrasenia.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
-        lblContrasenia.setText("Contraseña");
-
-        txtContrasenia.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
-        txtContrasenia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraseniaActionPerformed(evt);
-            }
-        });
-
-        btnIngresar.setFont(new java.awt.Font("Arial Black", 0, 10)); // NOI18N
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,52 +54,44 @@ public class frmLoguin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuario)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(txtUsuar, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                    .addComponent(txtContras)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUusario)
-                            .addComponent(lblContrasenia))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtContrasenia))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(btnIngresar)
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)
+                        .addComponent(btnIngresar)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblUusario)
-                .addGap(18, 18, 18)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblContrasenia)
+                .addGap(45, 45, 45)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtContras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnIngresar)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraseniaActionPerformed
-
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-       String user = txtUsuario.getText();
-       String pass = String.valueOf(txtContrasenia.getText());
+               String user = txtUsuar.getText();
+       String pass = String.valueOf(txtContras.getText());
        
       if (!user.isEmpty() && !pass.isEmpty()) {
             
-            ClsEstudiante est = new ClsEstudiante();
-            var variablecontenedoraconsultaBd = est.LoguinEstudiante(user, pass);
+            ClsProfesor est = new ClsProfesor();
+            var variablecontenedoraconsultaBd = est.LoguinProfesor(user, pass);
 
             if (variablecontenedoraconsultaBd == true) {
                 JOptionPane.showMessageDialog(null, "Welcome");
@@ -141,29 +121,29 @@ public class frmLoguin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmLoguin().setVisible(true);
+                new frmLoguinProfesor().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
-    private javax.swing.JLabel lblContrasenia;
-    private javax.swing.JLabel lblUusario;
-    private javax.swing.JPasswordField txtContrasenia;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField txtContras;
+    private javax.swing.JTextField txtUsuar;
     // End of variables declaration//GEN-END:variables
 }

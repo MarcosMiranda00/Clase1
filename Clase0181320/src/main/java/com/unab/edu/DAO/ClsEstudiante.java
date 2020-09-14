@@ -24,33 +24,56 @@ public class ClsEstudiante {
     ConexionBd conectarclase = new ConexionBd();
     Connection conectar = conectarclase.retornarConexion();
 
-    public boolean LoguinEstudiante(String usuario, String pass) {
-        ArrayList<Estudiante> ListaUsuariosPass = new ArrayList<>();
-
+    public boolean LoguinEstudiante(String usuario, String Pass) {
+        ArrayList<Estudiante> ListaUsuarios = new ArrayList<>();
+        ArrayList<Estudiante> ListarContra = new ArrayList<>();
         try {
-            CallableStatement Statement = conectar.prepareCall("call SP_S_LOGUINESTUDIANTE(?,?)");
-            Statement.setString("pusuario", usuario);
-            Statement.setString("ppass", pass);
-            ResultSet resultadoDeConsulta = Statement.executeQuery();
-            while (resultadoDeConsulta.next()) {
+            CallableStatement st = conectar.prepareCall("call SP_S_LOGUINESTUDIANTE(?,?)");
+
+            st.setString("pusuario", usuario);
+            st.setString("ppass", Pass);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
                 Estudiante es = new Estudiante();
-                es.setUsu(resultadoDeConsulta.getString("USU"));
-                es.setPass(resultadoDeConsulta.getString("PASS"));
-                ListaUsuariosPass.add(es);
+                es.setUsu(rs.getNString("Usu"));
+                es.setPass(rs.getNString("pass"));
+                ListaUsuarios.add(es);
+            }
+            String usuariodebasedatos = null;
+            String passdebasededatos = null;
+            for (var iterador : ListaUsuarios) {
+                usuariodebasedatos = iterador.getUsu();
+                passdebasededatos = iterador.getPass();
 
             }
-            String usuariodebasededatos = null;
-            String passdebasededatos = null;
-            for (var iterador : ListaUsuariosPass) {
-                usuariodebasededatos = iterador.getUsu();
-                passdebasededatos = iterador.getPass();
+
+            CallableStatement st2 = conectar.prepareCall("call SP_S_CRIP(?)");
+            st2.setString("PcripPass", Pass);
+            ResultSet rs2 = st2.executeQuery();
+            while (rs2.next()) {
+                Estudiante escrip = new Estudiante();
+
+                escrip.setPass(rs2.getNString("crip"));
+                ListarContra.add(escrip);
             }
-            if (usuariodebasededatos.equals(usuario) && passdebasededatos.equals(pass)) {
-                return true;
+
+            String passcrip = null;
+            for (var iterador : ListarContra) {
+
+                passcrip = iterador.getPass();
+
+                Pass = passcrip;
+
+            }
+
+            if (usuariodebasedatos != null && passdebasededatos != null) {
+                if (usuariodebasedatos.equals(usuario) && passdebasededatos.equals(Pass)) {
+                    return true;
+                }
             }
             conectar.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
         return false;
     }
