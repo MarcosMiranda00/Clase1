@@ -11,6 +11,7 @@ import com.unab.edu.Entidades.Estudiante;
 import com.unab.edu.Entidades.Persona;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.*;
 
 /**
@@ -23,15 +24,17 @@ public class crudEstudiante extends javax.swing.JFrame {
      * Creates new form crudEstudiante
      */
     String valueMember[];
-    int contador = 0;
+    int contador = 1;
 
     public void displayMenber() {
 
         DefaultComboBoxModel cbdefault = new DefaultComboBoxModel();
         CLsPersona ClasePersona = new CLsPersona();
         ArrayList<Persona> Personas = ClasePersona.MostrarPersona();
-        valueMember = new String[Personas.size()];
+        valueMember = new String[Personas.size() + 1];
         String filas[] = new String[4];
+
+        cbdefault.addElement("");
         for (var IterarDatosPersona : Personas) {
             filas[0] = String.valueOf(IterarDatosPersona.getIdPersona());
             filas[1] = IterarDatosPersona.getNombre();
@@ -41,7 +44,7 @@ public class crudEstudiante extends javax.swing.JFrame {
         }
         cbPersona.setModel(cbdefault);
     }
-    
+
     public crudEstudiante() {
         initComponents();
         MostrarTablaEstudiante();
@@ -49,8 +52,9 @@ public class crudEstudiante extends javax.swing.JFrame {
 //        MostrardatosTabla();
         this.setLocationRelativeTo(null);
     }
+
     void MostrarTablaEstudiante() {
-        String TITULOS[] = {"ID_ESTUDIANTE", "MATRICULA", "ID_PERSONA","NOMBRE_PERSONA", "USUARIO", "CONTRASEÑA", "NIE"};
+        String TITULOS[] = {"ID_ESTUDIANTE", "MATRICULA", "ID_PERSONA", "NOMBRE_PERSONA", "USUARIO", "CONTRASEÑA", "NIE"};
         DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
         ClsEstudiante ClaseEstudiante = new ClsEstudiante();
         var Estudiante = ClaseEstudiante.MostrarEstudiante();
@@ -255,40 +259,57 @@ public class crudEstudiante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEstActionPerformed
-       ClsEstudiante Estudiante = new ClsEstudiante();
-        Estudiante est = new Estudiante();
-        est.setMatricula(Integer.parseInt(txtMatricula.getText()));
+        try {
+            ClsEstudiante Estudiante = new ClsEstudiante();
+            Estudiante est = new Estudiante();
+            est.setMatricula(Integer.parseInt(txtMatricula.getText()));
 //        est.setIdPersona(Integer.parseInt(txtIdPerson.getText()));
-        est.setIdPersona(Integer.parseInt(valueMember[cbPersona.getSelectedIndex()]));
-        est.setUsu(txtUsuario.getText());
-        est.setPass(txtContra.getText());
-        est.setNIE(Integer.parseInt(txtNie.getText()));
-        Estudiante.AgregarEst(est);
+            est.setIdPersona(Integer.parseInt(valueMember[cbPersona.getSelectedIndex()]));
+            est.setUsu(txtUsuario.getText());
+            est.setPass(txtContra.getText());
+            est.setNIE(Integer.parseInt(txtNie.getText()));
+            Estudiante.AgregarEst(est);
 
-        MostrarTablaEstudiante();
+            MostrarTablaEstudiante();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Rellene todos los campos");
+        }
+
+
     }//GEN-LAST:event_btnNuevoEstActionPerformed
 
     private void btnActualizarEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEstActionPerformed
-         ClsEstudiante Estudiante = new ClsEstudiante();
-        Estudiante estud = new Estudiante();
-        estud.setID(Integer.parseInt(txtIdEstu.getText()));
-        estud.setMatricula(Integer.parseInt(txtMatricula.getText()));
+        try {
+            ClsEstudiante Estudiante = new ClsEstudiante();
+            Estudiante estud = new Estudiante();
+            estud.setID(Integer.parseInt(txtIdEstu.getText()));
+            estud.setMatricula(Integer.parseInt(txtMatricula.getText()));
 //        estud.setIdPersona(Integer.parseInt(txtIdPerson.getText()));
-        estud.setUsu(txtUsuario.getText());
-        estud.setPass(txtContra.getText());
-        estud.setNIE(Integer.parseInt(txtNie.getText()));
-        Estudiante.ActualizarEstudiante(estud);
+            estud.setUsu(txtUsuario.getText());
+            estud.setPass(txtContra.getText());
+            estud.setNIE(Integer.parseInt(txtNie.getText()));
+            Estudiante.ActualizarEstudiante(estud);
 
-        MostrarTablaEstudiante();
+            MostrarTablaEstudiante();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Rellene todos los campos");
+        }
+
+
     }//GEN-LAST:event_btnActualizarEstActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        ClsEstudiante Estudiantes = new ClsEstudiante();
-        Estudiante estu = new Estudiante();
-        estu.setID(Integer.parseInt(txtIdEstu.getText()));
-        Estudiantes.BorrarEstudiante(estu);
+        try {
+            ClsEstudiante Estudiantes = new ClsEstudiante();
+            Estudiante estu = new Estudiante();
+            estu.setID(Integer.parseInt(txtIdEstu.getText()));
+            Estudiantes.BorrarEstudiante(estu);
 
-        MostrarTablaEstudiante();
+            MostrarTablaEstudiante();
+        } catch (Exception e) {
+        }
+
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tb_MostrarEstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_MostrarEstMouseClicked
@@ -309,6 +330,14 @@ public class crudEstudiante extends javax.swing.JFrame {
         txtUsuario.setText(Usuario);
         txtContra.setText(Password);
         txtNie.setText(Nie);
+        
+        int seleccionadordevista = 0;
+        for (var iterar : valueMember){
+        if(IdPersona.equals(iterar)){
+        cbPersona.setSelectedIndex(seleccionadordevista);
+        }
+        seleccionadordevista+=1;        
+        }
     }//GEN-LAST:event_tb_MostrarEstMouseClicked
 
     /**
